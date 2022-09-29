@@ -50,7 +50,7 @@ class Trans:
                       }
 
     #test1 = input("yäni")
-
+    swag=[]
     from time import sleep
     stack = []
     output_queue = []
@@ -59,7 +59,10 @@ class Trans:
     # if it is an operand we push it to the output queu
     def operand_check(self, element):
         if (element not in Trans.operator_dict.keys()) and (element not in Trans.parenthesis_dict.keys()):
-            Trans.output_queue.append(element)
+            Trans.swag.append(element)
+        else:
+            Trans.output_queue.append("".join(Trans.swag))
+            Trans.swag.clear()
 
 
     def if_paranthesis(self,element):
@@ -108,7 +111,8 @@ class Trans:
         for element in current_equation:
 
             self.operand_check(element)
-
+            if element == current_equation[-1]:
+                Trans.output_queue.append("".join(Trans.swag))
             self.if_paranthesis(element)
 
             self.if_operator(element)
@@ -121,6 +125,7 @@ class Trans:
 
         #print("stack:", Trans.stack)
         #print("output queue", Trans.output_queue)
+        print("output queue", Trans.output_queue)
         output_queue = Trans.output_queue
         return output_queue
 x = Trans()
